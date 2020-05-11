@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AsmADModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AsmAD.dbo.AccountManagement' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AccountManagement">
+          <Key>
+            <PropertyRef Name="Id_Account" />
+            <PropertyRef Name="Account" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Id_Role" />
+          </Key>
+          <Property Name="Id_Account" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id_Role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccountRole">
+          <Key>
+            <PropertyRef Name="Id_Role" />
+          </Key>
+          <Property Name="Id_Role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="Id_Course" />
+          </Key>
+          <Property Name="Id_Course" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Id_CateCourse" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseManagerment">
+          <Key>
+            <PropertyRef Name="Id_CateCourse" />
+          </Key>
+          <Property Name="Id_CateCourse" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="Id_Topic" />
+          </Key>
+          <Property Name="Id_Topic" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Id_Course" Type="int" Nullable="false" />
+          <Property Name="Id_Trainer" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AsmAD.dbo.TopicVsTrainee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TopicVsTrainee">
+          <Key>
+            <PropertyRef Name="Id_Trainee" />
+            <PropertyRef Name="Id_Topic" />
+          </Key>
+          <Property Name="Id_Trainee" Type="int" Nullable="false" />
+          <Property Name="Id_Topic" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TraineeProfile">
+          <Key>
+            <PropertyRef Name="Id_Trainee" />
+          </Key>
+          <Property Name="Id_Trainee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="200" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="ProgramLanguage" Type="varchar" MaxLength="50" />
+          <Property Name="TOEICPoint" Type="int" />
+        </EntityType>
+        <EntityType Name="TrainerProfile">
+          <Key>
+            <PropertyRef Name="Id_Trainer" />
+          </Key>
+          <Property Name="Id_Trainer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExOrInType" Type="bit" Nullable="false" />
+          <Property Name="Telephone" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Id_Topic" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="AsmADModelStoreContainer">
+          <EntitySet Name="AccountRole" EntityType="Self.AccountRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseManagerment" EntityType="Self.CourseManagerment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Topic" EntityType="Self.Topic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TraineeProfile" EntityType="Self.TraineeProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainerProfile" EntityType="Self.TrainerProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountManagement" EntityType="Self.AccountManagement" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AccountManagement].[Id_Account] AS [Id_Account], 
+    [AccountManagement].[Account] AS [Account], 
+    [AccountManagement].[Password] AS [Password], 
+    [AccountManagement].[Id_Role] AS [Id_Role]
+    FROM [dbo].[AccountManagement] AS [AccountManagement]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TopicVsTrainee" EntityType="Self.TopicVsTrainee" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TopicVsTrainee].[Id_Trainee] AS [Id_Trainee], 
+    [TopicVsTrainee].[Id_Topic] AS [Id_Topic]
+    FROM [dbo].[TopicVsTrainee] AS [TopicVsTrainee]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AsmADModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccountRole">
+          <Key>
+            <PropertyRef Name="Id_Role" />
+          </Key>
+          <Property Name="Id_Role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="Id_Course" />
+          </Key>
+          <Property Name="Id_Course" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Id_CateCourse" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseManagerment">
+          <Key>
+            <PropertyRef Name="Id_CateCourse" />
+          </Key>
+          <Property Name="Id_CateCourse" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="Id_Topic" />
+          </Key>
+          <Property Name="Id_Topic" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Id_Course" Type="Int32" Nullable="false" />
+          <Property Name="Id_Trainer" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TraineeProfile">
+          <Key>
+            <PropertyRef Name="Id_Trainee" />
+          </Key>
+          <Property Name="Id_Trainee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProgramLanguage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOEICPoint" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TrainerProfile">
+          <Key>
+            <PropertyRef Name="Id_Trainer" />
+          </Key>
+          <Property Name="Id_Trainer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ExOrInType" Type="Boolean" Nullable="false" />
+          <Property Name="Telephone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id_Topic" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccountManagement">
+          <Key>
+            <PropertyRef Name="Id_Account" />
+            <PropertyRef Name="Account" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Id_Role" />
+          </Key>
+          <Property Name="Id_Account" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id_Role" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TopicVsTrainee">
+          <Key>
+            <PropertyRef Name="Id_Trainee" />
+            <PropertyRef Name="Id_Topic" />
+          </Key>
+          <Property Name="Id_Trainee" Type="Int32" Nullable="false" />
+          <Property Name="Id_Topic" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="AsmADEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountRoles" EntityType="Self.AccountRole" />
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="CourseManagerments" EntityType="Self.CourseManagerment" />
+          <EntitySet Name="Topics" EntityType="Self.Topic" />
+          <EntitySet Name="TraineeProfiles" EntityType="Self.TraineeProfile" />
+          <EntitySet Name="TrainerProfiles" EntityType="Self.TrainerProfile" />
+          <EntitySet Name="AccountManagements" EntityType="Self.AccountManagement" />
+          <EntitySet Name="TopicVsTrainees" EntityType="Self.TopicVsTrainee" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AsmADModelStoreContainer" CdmEntityContainer="AsmADEntities1">
+          <EntitySetMapping Name="AccountRoles">
+            <EntityTypeMapping TypeName="AsmADModel.AccountRole">
+              <MappingFragment StoreEntitySet="AccountRole">
+                <ScalarProperty Name="Id_Role" ColumnName="Id_Role" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="AsmADModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="Id_Course" ColumnName="Id_Course" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id_CateCourse" ColumnName="Id_CateCourse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseManagerments">
+            <EntityTypeMapping TypeName="AsmADModel.CourseManagerment">
+              <MappingFragment StoreEntitySet="CourseManagerment">
+                <ScalarProperty Name="Id_CateCourse" ColumnName="Id_CateCourse" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Topics">
+            <EntityTypeMapping TypeName="AsmADModel.Topic">
+              <MappingFragment StoreEntitySet="Topic">
+                <ScalarProperty Name="Id_Topic" ColumnName="Id_Topic" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id_Course" ColumnName="Id_Course" />
+                <ScalarProperty Name="Id_Trainer" ColumnName="Id_Trainer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TraineeProfiles">
+            <EntityTypeMapping TypeName="AsmADModel.TraineeProfile">
+              <MappingFragment StoreEntitySet="TraineeProfile">
+                <ScalarProperty Name="Id_Trainee" ColumnName="Id_Trainee" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ProgramLanguage" ColumnName="ProgramLanguage" />
+                <ScalarProperty Name="TOEICPoint" ColumnName="TOEICPoint" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainerProfiles">
+            <EntityTypeMapping TypeName="AsmADModel.TrainerProfile">
+              <MappingFragment StoreEntitySet="TrainerProfile">
+                <ScalarProperty Name="Id_Trainer" ColumnName="Id_Trainer" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ExOrInType" ColumnName="ExOrInType" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Id_Topic" ColumnName="Id_Topic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountManagements">
+            <EntityTypeMapping TypeName="AsmADModel.AccountManagement">
+              <MappingFragment StoreEntitySet="AccountManagement">
+                <ScalarProperty Name="Id_Account" ColumnName="Id_Account" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Id_Role" ColumnName="Id_Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TopicVsTrainees">
+            <EntityTypeMapping TypeName="AsmADModel.TopicVsTrainee">
+              <MappingFragment StoreEntitySet="TopicVsTrainee">
+                <ScalarProperty Name="Id_Trainee" ColumnName="Id_Trainee" />
+                <ScalarProperty Name="Id_Topic" ColumnName="Id_Topic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
